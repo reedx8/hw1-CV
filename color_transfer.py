@@ -117,7 +117,6 @@ if __name__ == "__main__":
     cv2.imshow("image", img_RGB_source)
     cv2.waitKey(0)
 
-
     # ===== read input images
     # img_RGB_source: is the image you want to change its color
     # img_RGB_target: is the image containing the color distribution that you want to change the img_RGB_source to (transfer color of the img_RGB_target to the img_RGB_source)
