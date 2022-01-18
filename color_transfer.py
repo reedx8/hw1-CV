@@ -109,7 +109,10 @@ if __name__ == "__main__":
     # img_RGB_source = cv2.imread(args["image"])
 
     path_file_image_source = 'source1.png'
+    path_file_image_target = 'target1.png'
+
     img_RGB_source = cv2.imread(path_file_image_source)
+    img_RGB_target = cv2.imread(path_file_image_target)
 
     cv2.imshow("image", img_RGB_source)
     cv2.waitKey(0)
@@ -119,6 +122,7 @@ if __name__ == "__main__":
     # img_RGB_source: is the image you want to change its color
     # img_RGB_target: is the image containing the color distribution that you want to change the img_RGB_source to (transfer color of the img_RGB_target to the img_RGB_source)
 
+    # converts TO lab color space
     img_RGB_new_Lab       = color_transfer(img_RGB_source, img_RGB_target, option='in_Lab')
     # todo: save image to path_file_image_result_in_Lab
 
