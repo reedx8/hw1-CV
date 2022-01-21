@@ -58,7 +58,25 @@ def convert_color_space_CIECAM97s_to_RGB(img_CIECAM97s):
 
 def color_transfer_in_Lab(img_RGB_source, img_RGB_target):
     print('===== color_transfer_in_Lab =====')
-    # to be completed ...
+
+    m1 = np.array([(0.3811, 0.5783, 0.0402), (0.1967, 0.7244, 0.0782), (0.0241, 0.1288, 0.8444)])
+
+    a = [[ 0.57735026919, 0, 0], # 1/sqrt(3)
+        [ 0, 0.40824829046, 0], # 1/sqrt(6)
+        [ 0, 0, 0.70710678118]] # 1/sqrt(2)
+    b = [[ 1, 1, 1],
+        [ 1, 1,-2],
+        [ 1,-1, 0]]
+
+    lms_source = np.matmul(img_RGB_source, m1)
+    lms_target = np.matmul(img_RGB_target, m1)
+
+    lab_source = np.matmul(lms_source, np.matmul(a, b))
+    lab_target = np.matmul(lms_target, np.matmul(a, b))
+
+    ## color processing to LAB here...
+
+
 
 def color_transfer_in_RGB(img_RGB_source, img_RGB_target):
     print('===== color_transfer_in_RGB =====')
@@ -111,8 +129,12 @@ if __name__ == "__main__":
     path_file_image_source = 'source1.png'
     path_file_image_target = 'target1.png'
 
-    img_RGB_source = cv2.imread(path_file_image_source)
-    img_RGB_target = cv2.imread(path_file_image_target)
+    # [:, :, ::-1] is used to convert BGR to the necessary RGB color space
+    img_RGB_source = cv2.imread(path_file_image_source)[:, :, ::-1] 
+    img_RGB_target = cv2.imread(path_file_image_target)[:, :, ::-1] 
+
+    print(img_RGB_source.shape) # (height, width, channels) = (599, 800, 3)
+    # print(np.moveaxis(img_RGB_source, 0)
 
     cv2.imshow("image", img_RGB_source)
     cv2.waitKey(0)
